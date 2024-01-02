@@ -23,6 +23,30 @@
 		<link href="{% static "css/tiny-slider.css"%}" rel="stylesheet">
 		<link href="{% static "css/style.css"%}" rel="stylesheet">
 		<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
+    
+        <style>
+        
+
+        .logout-alert {
+            background-color: #dc3545;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
 	</head>
 
 	<body>
@@ -31,7 +55,7 @@
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
 			<div class="container">
-				<a class="navbar-brand" href="index.html">Furni<span>.</span></a>
+				<a class="navbar-brand" href="{% url 'main:index' %}">Furni<span>.</span></a>
 
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -46,11 +70,14 @@
 						<li><a class="nav-link" href="{% url 'main:about' %}">About us</a></li>
 						<li><a class="nav-link" href="{% url 'main:services' %}">Services</a></li>
 						<li><a class="nav-link" href="{% url 'main:blog' %}">Blog</a></li>
-						<li><a class="nav-link" href="{% url 'main:contact' %}">Contact us</a></li>
+						<li><a class="nav-link" href="{% url 'account1:register' %}">Register</a></li>
+                        <li><a class="nav-link" href="{% url 'account1:login' %}">Login</a></li>
+                        <li><a class="nav-link" href="{% url 'account1:logout' %}">Logout</a></li>
+                        <li><a class="nav-link" href="{% url 'manager:index' %}">Manager</a></li>
 					</ul>
 
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="#"><img src="{% static "images/user.svg"%}"></a></li>
+						<li><a class="nav-link" href="{% url 'manager:index' %}"><img src="{% static "images/user.svg"%}"></a></li>
 						<li><a class="nav-link" href="{% url 'main:cart' %}"><img src="{% static "images/cart.svg"%}"></a></li>
 					</ul>
 				</div>
@@ -83,6 +110,11 @@
 		<!-- End Hero Section -->
 
 		<!-- Start Product Section -->
+        
+        {% block register_content %}
+        {% endblock %}
+        
+        
 		<div class="product-section">
 			<div class="container">
 				<div class="row">

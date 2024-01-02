@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "furni.apps.FurniConfig",
-    "account1.apps.Account1Config"
+    "account1.apps.Account1Config",
+    "manager.apps.ManagerConfig"
 ]
 
 MIDDLEWARE = [

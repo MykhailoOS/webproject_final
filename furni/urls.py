@@ -1,7 +1,7 @@
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from furni.views import index, about, shop, services, cart, blog, IndexView
+from furni.views import index, about, shop, thanks,  services, cart, blog, IndexView, ReserveView
 
 from furni_webproject import settings
 
@@ -14,6 +14,8 @@ urlpatterns = [
     path('services/', services, name='services'),
     path('contact/', IndexView.as_view(), name='contact'),
     path('cart/', cart, name='cart'),
-    path('blog/', blog, name='blog')
+    path('blog/', blog, name='blog'),
+    path('checkout/', ReserveView.as_view(), name='checkout'),
+    path('successful_order/', thanks, name='successful_order'),
 
 ]

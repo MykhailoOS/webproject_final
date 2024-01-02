@@ -1,15 +1,25 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from .forms import ContactForm
+from furni.forms import ContactForm, CheckoutForm
 from .models import Home
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
 
+
 def index(request):
     return render(request, 'index.html')
+
+
+def thanks(request):
+    return render(request, 'thankyou.html')
+
+
+def checkout(request):
+    return render(request, 'checkout.html')
 
 
 def about(request):
@@ -54,5 +64,22 @@ class IndexView(TemplateView):
         return render(request, 'contact.html', context)
 
 
+class ReserveView(TemplateView):
+    template_name = 'checkout.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['checkout_form'] = CheckoutForm()
+        return context
 
+    def post(self, request, *args, **kwargs):
+        checkout_form = CheckoutForm(request.POST)
+
+        if checkout_form.is_valid():
+            checkout_form.save()
+            messages.success(request, 'Done!')
+            return redirect('main:successful_order')
+        context = super().get_context_data(**kwargs)
+        context['checkout_form'] = CheckoutForm()
+        messages.error(request, "Error")
+        return render(request, 'index.html', context)

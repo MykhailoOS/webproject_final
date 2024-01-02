@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import RegexValidator
 
 
 # Create your models here.
@@ -71,4 +72,28 @@ class Contact(models.Model):
 
     class Meta:
         verbose_name_plural = 'ContactForm'
+        ordering = ('-created_at',)
+
+
+class Checkout(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
+    company_name = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=50, blank=True)
+    email = models.EmailField()
+    phone_regex = RegexValidator(regex=r'^\+?\d{7,12}$',
+                                 message='incorrect phone number')
+    phone = models.CharField(validators=[phone_regex, ], max_length=20)
+    message = models.TextField(max_length=300, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.first_name} - {self.last_name} - {self.company_name} - {self.email} - {self.country}'
+
+    class Meta:
+        verbose_name_plural = 'CheckoutForm'
         ordering = ('-created_at',)

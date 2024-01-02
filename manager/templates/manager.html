@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% block register_content %}
+<div class="container mt-5">
+        <h1>Список резервацій</h1>
+        <div class="list-group mt-4">
+            {% for reservation in reservations %}
+                <div class="list-group-item">
+                    <h5 class="mb-1">{{ reservation.first_name }}</h5>
+                    <p class="mb-1">{{ reservation.last_name }}</p>
+                    <p class="mb-1">Email: {{ reservation.email}}, Phone: {{ reservation.phone }}</p>
+                    <p class="mb-1">Company: {{ reservation.company_name }}</p>
+                    <p class="mb-1">Company: {{ reservation.country }}</p>
+                    <p class="mb-1">Company: {{ reservation.address }}</p>
+                    <p class="mb-1">Company: {{ reservation.postal_code }}</p>
+                    <a href="{% url 'manager:approve' reservation.id %}" class="btn btn-primary btn-sm float-right">Підтвердити</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
